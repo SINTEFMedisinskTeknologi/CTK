@@ -117,7 +117,7 @@ QSharedPointer<ctkPlugin> ctkPlugins::install(const QUrl& location, QIODevice* i
         //TODO copy the QIODevice to a local cache
       }
 
-      std::cout << "ctk, andre utgang insert plugin in storage: localPluginPath: " << localPluginPath;
+      std::cout << "ctk, andre utgang insert plugin in storage: localPluginPath: " << localPluginPath.toStdString();
       pa = fwCtx->storage->insertPlugin(location, localPluginPath);
 
       res = QSharedPointer<ctkPlugin>(new ctkPlugin());
