@@ -67,6 +67,7 @@ QSharedPointer<ctkPlugin> ctkPlugins::install(const QUrl& location, QIODevice* i
     QHash<QString, QSharedPointer<ctkPlugin> >::const_iterator it = plugins.find(location.toString());
     if (it != plugins.end())
     {
+      std::cout << " return ved første korsvei: plugins.find(location.toString());";
       return it.value();
     }
 
@@ -116,6 +117,7 @@ QSharedPointer<ctkPlugin> ctkPlugins::install(const QUrl& location, QIODevice* i
         //TODO copy the QIODevice to a local cache
       }
 
+      std::cout << "ctk, andre utgang insert plugin in storage: localPluginPath: " << localPluginPath;
       pa = fwCtx->storage->insertPlugin(location, localPluginPath);
 
       res = QSharedPointer<ctkPlugin>(new ctkPlugin());
