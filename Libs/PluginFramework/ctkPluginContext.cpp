@@ -30,6 +30,7 @@
 #include "ctkServiceReference_p.h"
 
 #include <stdexcept>
+#include <iostream>
 
 //----------------------------------------------------------------------------
 ctkPluginContextPrivate::ctkPluginContextPrivate(ctkPluginPrivate* plugin)
