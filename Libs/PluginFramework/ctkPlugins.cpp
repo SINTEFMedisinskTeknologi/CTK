@@ -58,16 +58,18 @@ void ctkPlugins::clear()
 //----------------------------------------------------------------------------
 QSharedPointer<ctkPlugin> ctkPlugins::install(const QUrl& location, QIODevice* in)
 {
+  std::cout << " Entering: QSharedPointer<ctkPlugin> ctkPlugins::install(const QUrl& location, QIODevice* in) \n";
   checkIllegalState();
-
+  std::cout << " 2 \n";
   QSharedPointer<ctkPlugin> res;
   {
     QMutexLocker lock(&objectLock);
-
+    std::cout << " 3 \n";
     QHash<QString, QSharedPointer<ctkPlugin> >::const_iterator it = plugins.find(location.toString());
+    std::cout << " 4 \n";
     if (it != plugins.end())
     {
-      std::cout << " return ved første korsvei: plugins.find(location.toString());";
+      std::cout << " return ved første korsvei: plugins.find(location.toString()); \n";
       return it.value();
     }
 
@@ -117,7 +119,7 @@ QSharedPointer<ctkPlugin> ctkPlugins::install(const QUrl& location, QIODevice* i
         //TODO copy the QIODevice to a local cache
       }
 
-      std::cout << "ctk, andre utgang insert plugin in storage: localPluginPath: " << localPluginPath.toStdString();
+      std::cout << "ctk, andre utgang insert plugin in storage: localPluginPath: " << localPluginPath.toStdString() << "\n";
       pa = fwCtx->storage->insertPlugin(location, localPluginPath);
 
       res = QSharedPointer<ctkPlugin>(new ctkPlugin());

@@ -96,8 +96,11 @@ QList<QSharedPointer<ctkPlugin> > ctkPluginContext::getPlugins() const
 //----------------------------------------------------------------------------
 QSharedPointer<ctkPlugin> ctkPluginContext::installPlugin(const QUrl& location, QIODevice* in)
 {
+  std::cout << " Enter:  QSharedPointer<ctkPlugin> ctkPluginContext::installPlugin(const QUrl& location, QIODevice* in)\n";
   Q_D(ctkPluginContext);
+  std::cout << " A \n";
   d->isPluginContextValid();
+  std::cout << " B \n";
   return d->plugin->fwCtx->plugins->install(location, in);
 }
 
