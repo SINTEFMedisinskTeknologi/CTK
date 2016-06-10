@@ -394,16 +394,19 @@ QSharedPointer<ctkPluginArchive> ctkPluginStorageSQL::insertPlugin(const QUrl& l
 //----------------------------------------------------------------------------
 void ctkPluginStorageSQL::insertArchive(QSharedPointer<ctkPluginArchiveSQL> pa)
 {
+  std::cout << " K \n";
   checkConnection();
-
+std::cout << " N \n";
   QSqlDatabase database = QSqlDatabase::database(m_connectionName);
+  std::cout << " O \n";
   QSqlQuery query(database);
-
+std::cout << " P \n";
   beginTransaction(&query, Write);
-
+std::cout << " Q \n";
   try
   {
     insertArchive(pa, &query);
+    std::cout << " R \n";
   }
   catch (...)
   {
@@ -412,6 +415,7 @@ void ctkPluginStorageSQL::insertArchive(QSharedPointer<ctkPluginArchiveSQL> pa)
   }
 
   commitTransaction(&query);
+  std::cout << " S \n";
 }
 
 //----------------------------------------------------------------------------
@@ -434,21 +438,24 @@ void ctkPluginStorageSQL::insertArchive(QSharedPointer<ctkPluginArchiveSQL> pa, 
   QPluginLoader pluginLoader;
   pluginLoader.setLoadHints(getPluginLoadHints());
   pluginLoader.setFileName(pa->getLibLocation());
+  std::cout << " T \n";
   if (!pluginLoader.load())
   {
     ctkPluginException exc(QString("The plugin \"%1\" could not be loaded: %2").arg(pa->getLibLocation())
                            .arg(pluginLoader.errorString()));
     throw exc;
   }
-
+    std::cout << " U \n";
   QFile manifestResource(resourcePrefix + "META-INF/MANIFEST.MF");
   manifestResource.open(QIODevice::ReadOnly);
+  std::cout << " V \n";
   QByteArray manifest = manifestResource.readAll();
+  std::cout << " W \n";
   manifestResource.close();
-
+std::cout << " X \n";
   // Finally, complete the ctkPluginArchive information by reading the MANIFEST.MF resource
   pa->readManifest(manifest);
-
+std::cout << " Y \n";
   // Assemble the data for the sql records
 
   QString version = pa->getAttribute(ctkPluginConstants::PLUGIN_VERSION);
@@ -470,11 +477,12 @@ void ctkPluginStorageSQL::insertArchive(QSharedPointer<ctkPluginArchiveSQL> pa, 
   bindValues << pa->getAutostartSetting();
 
   executeQuery(query, statement, bindValues);
-
+    std::cout << " Z \n";
   pa->key = query->lastInsertId().toInt();
 
   // Write the plug-in resource data into the database
   QDirIterator dirIter(resourcePrefix, QDirIterator::Subdirectories);
+  std::cout << " 11 \n";
   while (dirIter.hasNext())
   {
     QString resourcePath = dirIter.next();
@@ -493,7 +501,7 @@ void ctkPluginStorageSQL::insertArchive(QSharedPointer<ctkPluginArchiveSQL> pa, 
 
     executeQuery(query, statement, bindValues);
   }
-
+    std::cout << " 22 \n";
   pluginLoader.unload();
 }
 
@@ -1002,12 +1010,13 @@ void ctkPluginStorageSQL::checkConnection() const
   {
     throw ctkPluginDatabaseException("Database not open.", ctkPluginDatabaseException::DB_NOT_OPEN_ERROR);
   }
-
+    std::cout << " L \n";
   if (!QSqlDatabase::database(m_connectionName).isValid())
   {
     throw ctkPluginDatabaseException(QString("Database connection invalid: %1").arg(m_connectionName),
                                   ctkPluginDatabaseException::DB_CONNECTION_INVALID);
   }
+  std::cout << " M \n";
 }
 
 //----------------------------------------------------------------------------
