@@ -121,10 +121,13 @@ QSharedPointer<ctkPlugin> ctkPlugins::install(const QUrl& location, QIODevice* i
 
       std::cout << "ctk, andre utgang insert plugin in storage: localPluginPath: " << localPluginPath.toStdString() << "\n";
       pa = fwCtx->storage->insertPlugin(location, localPluginPath);
-
+      std::cout << " 5 \n";
       res = QSharedPointer<ctkPlugin>(new ctkPlugin());
+      std::cout << " 6 \n";
       res->init(res, fwCtx, pa);
+      std::cout << " 7 \n";
       plugins.insert(location.toString(), res);
+      std::cout << " 8 \n";
     }
     catch (const ctkException& e)
     {
@@ -148,6 +151,7 @@ QSharedPointer<ctkPlugin> ctkPlugins::install(const QUrl& location, QIODevice* i
   }
 
   fwCtx->listeners.emitPluginChanged(ctkPluginEvent(ctkPluginEvent::INSTALLED, res));
+  std::cout << " 9 \n";
   return res;
 }
 

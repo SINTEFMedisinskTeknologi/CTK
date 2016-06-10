@@ -360,21 +360,26 @@ QLibrary::LoadHints ctkPluginStorageSQL::getPluginLoadHints() const
 //----------------------------------------------------------------------------
 QSharedPointer<ctkPluginArchive> ctkPluginStorageSQL::insertPlugin(const QUrl& location, const QString& localPath)
 {
+    std::cout << " Entering: QSharedPointer<ctkPluginArchive> ctkPluginStorageSQL::insertPlugin(const QUrl& location, const QString& localPath) \n";
   QMutexLocker lock(&m_archivesLock);
 
+  std::cout << " E \n";
   QFileInfo fileInfo(localPath);
+  std::cout << " F \n";
   if (!fileInfo.exists())
   {
     throw ctkInvalidArgumentException(localPath + " does not exist");
   }
-
+    std::cout << " G \n";
   const QString libTimestamp = getStringFromQDateTime(fileInfo.lastModified());
-
+    std::cout << " H \n";
   QSharedPointer<ctkPluginArchiveSQL> archive(new ctkPluginArchiveSQL(this, location, localPath,
                                                                       m_nextFreeId++));
+  std::cout << " I \n";
   try
   {
     insertArchive(archive);
+    std::cout << " J \n";
     m_archives << archive;
     return archive;
   }
