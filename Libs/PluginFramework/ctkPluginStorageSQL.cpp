@@ -32,6 +32,7 @@
 
 #include <QFileInfo>
 #include <QUrl>
+#include <iostream>
 
 //database table names
 #define PLUGINS_TABLE "Plugins"
