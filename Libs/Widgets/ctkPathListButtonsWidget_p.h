@@ -31,6 +31,7 @@ class ctkPathListButtonsWidget;
 class ctkPathListWidget;
 
 class QFileDialog;
+class QItemSelection;
 
 //-----------------------------------------------------------------------------
 class ctkPathListButtonsWidgetPrivate : public QObject, public Ui_ctkPathListButtonsWidget
